@@ -2,6 +2,7 @@ const ambulancesElement = document.querySelector('#ambulances');
 const policeStationsElement = document.querySelector('#police-stations');
 const vehiclesElement = document.querySelector('#vehicles');
 const accidentsElement = document.querySelector('#accidents');
+const accidentsTable = document.querySelector('#accidents table');
 const ambulances = firebase.database().ref().child('Ambulances');
 const policeStations = firebase.database().ref().child('PoliceStations');
 const vehicles = firebase.database().ref().child('Vehicles');
@@ -46,6 +47,26 @@ const addVehicle = (ownerName,contactNumber) =>{
     update[newVehicleKey]=newVehicle;
     vehicles.update(update);
 }
+
+document.querySelector("#navigation").addEventListener('click',e=>{
+    if(e.target.tagName=="SPAN"){
+        document.querySelector('#active-sec').id=document.querySelector('#active').getAttribute('displaySection');
+        document.querySelector('#active').removeAttribute('id');
+        e.target.id='active';
+        document.querySelector('#'+e.target.getAttribute('displaySection')).id='active-sec';
+    }
+    else if(e.target.tagName=="svg"){
+        document.querySelector('#active-sec').id=document.querySelector('#active').getAttribute('displaySection');
+        document.querySelector('#active').removeAttribute('id');
+        e.target.parentElement.id='active';
+        document.querySelector('#'+e.target.parentElement.getAttribute('displaySection')).id='active-sec';
+    }else if(e.target.tagName=="path"){
+        document.querySelector('#active-sec').id=document.querySelector('#active').getAttribute('displaySection');
+        document.querySelector('#active').removeAttribute('id');
+        e.target.parentElement.parentElement.id='active';
+        document.querySelector('#'+e.target.parentElement.parentElement.getAttribute('displaySection')).id='active-sec';
+    }
+})
 
 ambulances.on('value',snap=>{
     ambulancesElement.innerHTML=JSON.stringify(snap.val(),null,3);
