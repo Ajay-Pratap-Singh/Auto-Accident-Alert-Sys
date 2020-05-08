@@ -16,13 +16,9 @@ const editAmbulance = (permanentLocation, contactNumber) =>{
 
 accidents.on('child_added',snap=>{
     let  vehicleID = document.createElement('td');
-    let  vehicleIDField = document.createElement('input');
-    vehicleIDField.value=snap.val().vehicleID;
-    vehicleID.appendChild(vehicleIDField);
+    vehicleID.innerHTML=snap.val().vehicleID;
     let location = document.createElement('td');
-    let  locationField = document.createElement('input');
-    locationField.value='lat: '+snap.val().location.lat+' long: '+snap.val().location.long;
-    location.appendChild(locationField);
+    location.innerHTML='lat: '+snap.val().location.lat+' long: '+snap.val().location.long;
     // location.innerHTML = 'lat: '+snap.val().location.lat+' long: '+snap.val().location.long;
     let tableRow=document.createElement('tr');
     tableRow.appendChild(vehicleID);

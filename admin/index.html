@@ -6,6 +6,78 @@
     <title>Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="style.css">
+    <style>
+        section > div{
+            max-width:90%;
+            min-height: 70vh;
+            background-color: white;
+            padding: 3em;
+            border-radius: 3em;
+        }
+        table{
+            border-collapse: separate;
+            border-spacing: 0 1.1em;
+            min-width:95%;
+        }
+        td {
+            background-color: white;
+            padding: 1.1em 1.2em;
+        }
+        tr{
+            transition: 60ms;
+            box-shadow: 0 1px 9px -1px #ccc,
+                        0 4px 4px -1px #ddd;
+        }
+        .to-be-deleted,
+        .to-be-deleted td{
+            background-color: red;
+        }
+        th{
+            text-align: left;
+            padding: 1em 1.2em;
+        }
+        tr:hover{
+            transition: 40ms;
+            box-shadow: 0 1px 9px -1px #bbb,
+                        0 4px 5px 0px #ccc;
+            transform: scale(1.01);
+        }
+        .butt svg{
+            visibility: hidden;
+            text-align: right;
+        }
+        tr:hover .butt svg{
+            visibility: visible;
+        }
+        tr:first-of-type{
+            position:sticky;
+            top: 0;
+            background-color: #eee;
+        }
+        tr:first-of-type:hover{
+            transform: scale(1);
+            box-shadow: 0 1px 9px -1px #ccc,
+                        0 4px 4px -1px #ddd;
+        }
+        td svg{
+            cursor: pointer;
+            transition: 90ms;
+            margin:0 1em 0 0;
+        }
+        td svg:hover{
+            transition: 90ms;
+            transform: scale(1.4);
+        }
+        .edit:hover{
+            color:chocolate;
+        }
+        .delete{
+            margin-right: 2em;
+        }
+        .delete:hover{
+            color: crimson;
+        }
+    </style>
 </head>
 <body>
     <aside id="navigation">
@@ -54,46 +126,144 @@
 
     <main>
         <section id="active-sec">
-
+            <h1>Welcome to the Dashboard</h1>
+            <table>
+                <tr>
+                  <th>Entry Header 1</th>
+                  <th>Entry Header 2</th>
+                  <th>Entry Header 3</th>
+                  <th>Entry Header 4</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Entry First Line 1</td>
+                  <td>Entry First Line 2</td>
+                  <td>Entry First Line 3</td>
+                  <td>Entry First Line 4</td>
+                  <td class="butt">One one</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry First Line 1</td>
+                  <td>Entry First Line 2</td>
+                  <td>Entry First Line 3</td>
+                  <td>Entry First Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+                <tr>
+                  <td>Entry Last Line 1</td>
+                  <td>Entry Last Line 2</td>
+                  <td>Entry Last Line 3</td>
+                  <td>Entry Last Line 4</td>
+                </tr>
+            </table>   
         </section>
 
         <section id="accidents-sec">
             <h1>Accidents</h1>
             <div id = "accidents">
-        
+                <table>
+                    <tr>
+                        <th>Accident ID</th>
+                        <th>Vehicle ID</th>
+                        <th>Location</th>
+                        <th></th>
+                      </tr>
+                </table>
             </div>
         </section>
 
         <section id="vehicles-sec">
             <h1>Vehicles</h1>
             <div id = "vehicles">
-        
+                <table>
+                    <tr>
+                        <th>Vehicle ID</th>
+                        <th>Owner Name</th>
+                        <th>Contact No</th>
+                        <th></th>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section id="ambulances-sec">
             <h1>Ambulances</h1>
             <div id = "ambulances">
-        
+                <table>
+                    <tr>
+                        <th>Ambulance ID</th>
+                        <th>Static Location</th>
+                        <th>Contact No</th>
+                        <th></th>
+                    </tr>
+                </table>
             </div>
         </section>
 
         <section id="police-sec">
             <h1>Police Stations</h1>
             <div id = "police-stations">
-        
+                <table>
+                    <tr>
+                        <th>Police Station ID</th>
+                        <th>Location</th>
+                        <th>Contact No</th>
+                        <th></th>
+                    </tr>
+                </table>
             </div>
         </section>
 
     </main>
 
-    <aside id="input-appear">
+    <!-- <aside id="input-appear">
 
         <span>
             this is dummy content. Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse illum, ipsum suscipit maiores quo deserunt cumque, placeat ut ratione quos corrupti? Rem perspiciatis sunt, ea repudiandae exercitationem perferendis reiciendis! Esse?
         </span>
 
-    </aside>
+    </aside> -->
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
