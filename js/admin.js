@@ -75,13 +75,10 @@ document.querySelector("#navigation").addEventListener('click',e=>{
 })
 
 window.addEventListener("click",e=>{
-    console.log(e.target.parentNode);
-    
     if(e.target.classList.contains('delete')){
         e.target.parentNode.parentNode.classList.add('to-be-deleted');
         e.target.parentNode.innerHTML='<span class="cancel-delete">Cancel</span>';
     }else if(e.target.parentNode.classList.contains('delete')){
-        console.log(e.target,e.target.parentNode,e.target.parentElement);
         e.target.parentNode.parentNode.parentNode.classList.add('to-be-deleted');
         e.target.parentNode.parentNode.innerHTML='<span class="cancel-delete">Cancel</span>';
     }else if(e.target.classList.contains('cancel-delete')){
