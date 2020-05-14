@@ -68,3 +68,6 @@ main h1{
 main > #active-sec{
     display: block;
 }
+#input-appear{
+    display: none;    
+}
