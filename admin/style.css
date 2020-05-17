@@ -5,7 +5,7 @@ body{
     background: rgb(225, 241, 254);
     font-family: 'Montserrat', sans-serif;
     display: grid;
-    grid-template-columns: auto 15fr;
+    grid-template-columns: auto 15fr 7.5fr;
     transition: 0.5ms;
 }
 #navigation{
@@ -69,5 +69,69 @@ main > #active-sec{
     display: block;
 }
 #input-appear{
-    display: none;    
+    display: block;   
+    margin-top: 8em;
+    background-color: white;
+    padding: 2em 2em 2em 2em;
+    height: max-content;
+    border-radius: 3em; 
 }
+#input-appear form,
+#input-appear p{
+    display: flex;
+    flex-direction: column;
+}
+
+#input-appear h1{
+    color: rgb(21, 40, 160);
+    margin-bottom: 0.2em;
+    margin-top: 0;
+    font-size: 1.5em;
+}
+#input-appear p{
+    margin: 0.8em 0em;
+}
+#input-appear label{
+    color: navy;
+    font-size: 1em;
+    margin: 0 0 0.2em 0em;
+}
+#input-appear input{
+    font-size: 0.9em;
+    margin: 0 1em 0 0;
+    padding: 0.8em 1em;
+    border-radius: 8px;
+    border: 1px solid gainsboro ;
+    color: rgb(21, 40, 160);
+}
+#input-appear button,
+.add-butt{
+    cursor: pointer;
+    margin: 0 1em 0 0em;
+    padding: 0.8em 1em;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(53,69,206);
+    color: whitesmoke;
+    font-size: 1em;
+}
+.add-butt{
+    width: max-content;
+    float: right;
+}
+#input-appear #lat-long{
+    margin: 0.5em 1.2em;
+}
+#input-appear button:hover,
+.add-butt:hover{
+    background-color: rgb(47, 60, 175);
+    color: white;
+}
+#input-appear button:active,
+.add-butt:active{
+    background-color: crimson;
+}
+#input-appear input:hover,#input-appear input:focus{
+    border: 1px solid rgb(185, 185, 185) ;
+}
+    

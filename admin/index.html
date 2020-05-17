@@ -180,74 +180,7 @@
     <main>
         <section id="active-sec">
             <h1>Welcome to the Dashboard</h1>
-            <table>
-                <tr>
-                  <th>Entry Header 1</th>
-                  <th>Entry Header 2</th>
-                  <th>Entry Header 3</th>
-                  <th>Entry Header 4</th>
-                </tr>
-                <tr>
-                  <td>Entry First Line 1</td>
-                  <td>Entry First Line 2</td>
-                  <td>Entry First Line 3</td>
-                  <td>Entry First Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry First Line 1</td>
-                  <td>Entry First Line 2</td>
-                  <td>Entry First Line 3</td>
-                  <td>Entry First Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-                <tr>
-                  <td>Entry Last Line 1</td>
-                  <td>Entry Last Line 2</td>
-                  <td>Entry Last Line 3</td>
-                  <td>Entry Last Line 4</td>
-                </tr>
-            </table>   
+            
         </section>
 
         <section id="accidents-sec">
@@ -258,7 +191,6 @@
                         <th>Accident ID</th>
                         <th>Vehicle ID</th>
                         <th>Location</th>
-                        <th></th>
                       </tr>
                 </table>
             </div>
@@ -267,6 +199,7 @@
         <section id="vehicles-sec">
             <h1>Vehicles</h1>
             <div id = "vehicles">
+                <div add="Vehicles" class="add-butt">+ Add New Vehicle</div>
                 <table>
                     <tr class="table-head">
                         <th>Vehicle ID</th>
@@ -281,6 +214,7 @@
         <section id="ambulances-sec">
             <h1>Ambulances</h1>
             <div id = "ambulances">
+                <div add="Ambulances" class="add-butt">+ Add New Ambulance</div>
                 <table>
                     <tr class="table-head">
                         <th>Ambulance ID</th>
@@ -295,6 +229,7 @@
         <section id="police-sec">
             <h1>Police Stations</h1>
             <div id = "police-stations">
+                <div add="PoliceStations" class="add-butt">+ Add New Police Station</div>
                 <table>
                     <tr class="table-head">
                         <th>Police Station ID</th>
@@ -312,25 +247,30 @@
     </main>
 
     <aside id="input-appear">
+        <h1>
+            Edit
+        </h1>
         <form>
-            <p>
-                <label for="id">ID</label>
-                <input type="text" name="id" id="id">
+            <p id="id-input">
+                <label for="id">ID:</label>
+                <input type="text" name="id" id="id" readonly>
             </p>
-            <p>
+            <p id="name-input">
                 <label for="owner-name" class="owner-name">Owner Name:</label>
-                <input type="text" name="owner-name" class="owner-name">
+                <input type="text" name="owner-name" id="owner-name" placeholder="Enter vehicle owner's name">
             </p>
-            <p>
-                <label for="location">Location</label>
-                <label for="lat">lat:</label>
-                <input type="text" name="lat" id="lat">
-                <label for="long">long:</label>
-                <input type="text" name="long" id="long">
-            </p>
-            <p>
+            <div id="loc-input">
+                <label for="location">Location:</label>
+                <p id="lat-long">
+                    <label for="lat">lat:</label>
+                    <input type="text" name="lat" id="lat" placeholder="Enter latitude">
+                    <label for="long">long:</label>
+                    <input type="text" name="long" id="long" placeholder="Enter longitude">
+                </p>
+            </div>
+            <p id="contact-input">
                 <label for="contact">Contact:</label>
-                <input type="text" name="contact" id="contact">
+                <input type="text" name="contact" id="contact" placeholder="Enter contact number">
             </p>
             <p>
                 <button>Done</button>
