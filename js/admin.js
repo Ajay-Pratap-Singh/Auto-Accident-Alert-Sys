@@ -119,8 +119,17 @@ window.addEventListener("click",e=>{
             deleteEntry(element.classList[0],element.id);
             element.querySelector('.butt').innerHTML='<span style="color:white;">deleting...</span>';
         });
+        document.querySelector('#delete-final').style.visibility='hidden';
     }
     else if(e.target.classList.contains('edit-row')){
+        if(additionActive){
+            let prevAddition=document.querySelector('.cancel-add-butt');
+            let prevAddTable=prevAddition.getAttribute('add');
+            prevAddition.classList.add('add-butt');
+            prevAddition.innerHTML=(prevAddTable=='PoliceStations')? '+ Add New Police Stations': '+ Add New '+prevAddTable;
+            prevAddition.classList.remove('cancel-add-butt')
+            additionActive=null;
+        }
         document.querySelector('#input-appear h1').innerHTML="Edit";
         const idElement=e.target.parentNode.parentNode.id;
         const values=e.target.parentNode.parentNode.querySelectorAll('td');
@@ -147,6 +156,14 @@ window.addEventListener("click",e=>{
         e.target.parentNode.innerHTML='<span class="cancel-edit">Cancel</span>';
     }
     else if(e.target.parentNode.classList.contains('edit-row')){
+        if(additionActive){
+            let prevAddition=document.querySelector('.cancel-add-butt');
+            let prevAddTable=prevAddition.getAttribute('add');
+            prevAddition.classList.add('add-butt');
+            prevAddition.innerHTML=(prevAddTable=='PoliceStations')? '+ Add New Police Stations': '+ Add New '+prevAddTable;
+            prevAddition.classList.remove('cancel-add-butt')
+            additionActive=null
+        }
         document.querySelector('#input-appear h1').innerHTML="Edit";
         const idElement=e.target.parentNode.parentNode.parentNode.id;
         const values=e.target.parentNode.parentNode.parentNode.querySelectorAll('td');
@@ -176,20 +193,60 @@ window.addEventListener("click",e=>{
         document.querySelector('#input-appear').style.display='none';
         document.querySelector('body').style.gridTemplateColumns='auto 15fr';
         e.target.parentNode.innerHTML=editSVG+deleteSVG;
+        editingRecordID=null;
     }else if(e.target.classList.contains('add-butt')){
+        document.querySelectorAll('#input-appear input[type="text"]').forEach(element=>{
+            element.value='';
+        })
+        if(editingRecordID || document.querySelector('#'+editingRecordID)){
+            document.querySelector('#'+editingRecordID).querySelector('.butt').innerHTML=editSVG+deleteSVG;
+            editingRecordID=null;
+        }
         document.querySelector('body').style.gridTemplateColumns='auto 15fr 7.5fr';
         document.querySelector('#input-appear').style.display='block';
         document.querySelector('#id-input').style.display='none';
         e.target.innerHTML='Cancel Add';
-        e.target.style.background='crimson';
-        additionActive = e.target.add;
-        if(additionActive=='Ambulances'){
+        if(additionActive){
+            let prevAddition=document.querySelector('.cancel-add-butt');
+            let prevAddTable=prevAddition.getAttribute('add');
+            prevAddition.classList.add('add-butt');
+            prevAddition.innerHTML=(prevAddTable=='PoliceStations')? '+ Add New Police Stations': '+ Add New '+prevAddTable;
+            prevAddition.classList.remove('cancel-add-butt')
+            additionActive=null;
+        }
+        e.target.classList.remove('add-butt');
+        e.target.classList.add('cancel-add-butt');
+        additionActive = e.target.getAttribute('add');
+        if(additionActive=='Ambulances' || additionActive=='PoliceStations'){
+        document.querySelector('#input-appear h1').innerHTML=additionActive=='Ambulances'?'Add Ambulance':'Add Police Station';
             document.querySelector('#name-input').style.display='none';
             document.querySelector('#loc-input').style.display='block';
         }else if(additionActive=='Vehicles'){
+        document.querySelector('#input-appear h1').innerHTML='Add Vehicle'
             document.querySelector('#name-input').style.display='flex';
             document.querySelector('#loc-input').style.display='none';
         }
+    }else if(e.target.classList.contains('cancel-add-butt')){
+        document.querySelector('#input-appear').style.display='none';
+        document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+        e.target.classList.remove('cancel-add-butt');
+        e.target.classList.add('add-butt');
+        if(additionActive=='PoliceStations'){
+            e.target.innerHTML='+ Add New Police Station';
+        }else{
+            e.target.innerHTML='+ Add New '+e.target.getAttribute('add');
+        }
+        additionActive=null;
+    }
+})
+
+document.querySelector('#add-edit-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    let fields=e.target.querySelectorAll('input[type="text"]');
+    if(additionActive){
+        console.log('Adding ',additionActive,e,fields);
+    }else{
+        console.log('Editing ',editingRecordID,e,fields);
     }
 })
 

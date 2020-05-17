@@ -105,7 +105,8 @@ main > #active-sec{
     color: rgb(21, 40, 160);
 }
 #input-appear button,
-.add-butt{
+.add-butt,
+.cancel-add-butt{
     cursor: pointer;
     margin: 0 1em 0 0em;
     padding: 0.8em 1em;
@@ -115,7 +116,8 @@ main > #active-sec{
     color: whitesmoke;
     font-size: 1em;
 }
-.add-butt{
+.add-butt,
+.cancel-add-butt{
     width: max-content;
     float: right;
 }
@@ -130,6 +132,16 @@ main > #active-sec{
 #input-appear button:active,
 .add-butt:active{
     background-color: crimson;
+}
+.cancel-add-butt{
+    background-color: crimson;
+}
+.cancel-add-butt:hover{
+    background-color: rgb(197, 17, 53);
+    color: white;
+}
+.cancel-add-butt:active{
+    background-color: rgb(53,69,206);
 }
 #input-appear input:hover,#input-appear input:focus{
     border: 1px solid rgb(185, 185, 185) ;
