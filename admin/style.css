@@ -5,7 +5,7 @@ body{
     background: rgb(225, 241, 254);
     font-family: 'Montserrat', sans-serif;
     display: grid;
-    grid-template-columns: auto 15fr 7.5fr;
+    grid-template-columns: auto 15fr;
     transition: 0.5ms;
 }
 #navigation{
