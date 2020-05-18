@@ -136,6 +136,9 @@ window.addEventListener("click",e=>{
             prevAddition.classList.remove('cancel-add-butt')
             additionActive=null;
         }
+        document.querySelectorAll('.input-error').forEach(element=>{
+            element.classList.remove('input-error');
+        })
         document.querySelector('#input-appear h1').innerHTML="Edit";
         const idElement=e.target.parentNode.parentNode.id;
         const values=e.target.parentNode.parentNode.querySelectorAll('td');
@@ -170,6 +173,9 @@ window.addEventListener("click",e=>{
             prevAddition.classList.remove('cancel-add-butt')
             additionActive=null
         }
+        document.querySelectorAll('.input-error').forEach(element=>{
+            element.classList.remove('input-error');
+        })
         document.querySelector('#input-appear h1').innerHTML="Edit";
         const idElement=e.target.parentNode.parentNode.parentNode.id;
         const values=e.target.parentNode.parentNode.parentNode.querySelectorAll('td');
@@ -203,6 +209,9 @@ window.addEventListener("click",e=>{
     }else if(e.target.classList.contains('add-butt')){
         document.querySelectorAll('#input-appear input[type="text"]').forEach(element=>{
             element.value='';
+        })
+        document.querySelectorAll('.input-error').forEach(element=>{
+            element.classList.remove('input-error');
         })
         if(editingRecordID || document.querySelector('#'+editingRecordID)){
             document.querySelector('#'+editingRecordID).querySelector('.butt').innerHTML=editSVG+deleteSVG;
@@ -416,6 +425,26 @@ ambulances.on('child_added',snap=>{
     ambulancesTable.appendChild(tableRow);
 })
 
+ambulances.on('child_changed',snap=>{
+    let  ambulanceID = document.createElement('td');
+    ambulanceID.innerHTML=snap.key;
+    let location = document.createElement('td');
+    location.innerHTML='lat: '+snap.val().permanentLocation.lat+'<br>long: '+snap.val().permanentLocation.long;
+    let contact = document.createElement('td');
+    contact.innerHTML = snap.val().contact;
+    let actionIcons = document.createElement('td');
+    actionIcons.innerHTML = editSVG+deleteSVG;
+    actionIcons.classList.add('butt');
+    let tableRow=document.createElement('tr');
+    tableRow.appendChild(ambulanceID);
+    tableRow.appendChild(location);
+    tableRow.appendChild(contact);
+    tableRow.appendChild(actionIcons);
+    tableRow.id=snap.key;
+    tableRow.classList.add('Ambulances');
+    document.querySelector("#"+snap.key).outerHTML=tableRow.outerHTML;
+})
+
 ambulances.on('child_removed',snap=>{
     document.querySelector('#'+snap.key).remove();
 })
@@ -438,6 +467,26 @@ policeStations.on('child_added',snap=>{
     tableRow.id=snap.key;
     tableRow.classList.add('PoliceStations');
     policeStationsTable.appendChild(tableRow);
+})
+
+policeStations.on('child_changed',snap=>{
+    let  policeStationID = document.createElement('td');
+    policeStationID.innerHTML=snap.key;
+    let location = document.createElement('td');
+    location.innerHTML='lat: '+snap.val().location.lat+'<br>long: '+snap.val().location.long;
+    let contact = document.createElement('td');
+    contact.innerHTML = snap.val().contact;
+    let tableRow=document.createElement('tr');
+    let actionIcons = document.createElement('td');
+    actionIcons.innerHTML = editSVG+deleteSVG;
+    actionIcons.classList.add('butt');
+    tableRow.appendChild(policeStationID);
+    tableRow.appendChild(location);
+    tableRow.appendChild(contact);
+    tableRow.appendChild(actionIcons);
+    tableRow.id=snap.key;
+    tableRow.classList.add('PoliceStations');
+    document.querySelector("#"+snap.key).outerHTML=tableRow.outerHTML;
 })
 
 policeStations.on('child_removed',snap=>{
@@ -464,6 +513,26 @@ vehicles.on('child_added',snap=>{
     vehiclesTable.appendChild(tableRow);
 })
 
+vehicles.on('child_changed',snap=>{
+    let  vehicleID = document.createElement('td');
+    vehicleID.innerHTML=snap.key;
+    let owner = document.createElement('td');
+    owner.innerHTML = snap.val().ownerName;
+    let contact = document.createElement('td');
+    contact.innerHTML = snap.val().contact;
+    let tableRow=document.createElement('tr');
+    let actionIcons = document.createElement('td');
+    actionIcons.innerHTML = editSVG+deleteSVG;
+    actionIcons.classList.add('butt');
+    tableRow.appendChild(vehicleID);
+    tableRow.appendChild(owner);
+    tableRow.appendChild(contact);
+    tableRow.appendChild(actionIcons);
+    tableRow.id=snap.key;
+    tableRow.classList.add('Vehicles');
+    document.querySelector("#"+snap.key).outerHTML=tableRow.outerHTML;
+})
+
 vehicles.on('child_removed',snap=>{
     document.querySelector('#'+snap.key).remove();
 })
@@ -486,6 +555,26 @@ accidents.on('child_added',snap=>{
     tableRow.id=snap.key;
     tableRow.classList.add('Accidents');
     accidentsTable.appendChild(tableRow);
+})
+
+accidents.on('child_changed',snap=>{
+    let  accidentID = document.createElement('td');
+    accidentID.innerHTML=snap.key;
+    let  vehicleID = document.createElement('td');
+    vehicleID.innerHTML=snap.val().vehicleID;
+    let location = document.createElement('td');
+    location.innerHTML='lat: '+snap.val().location.lat+'<br>long: '+snap.val().location.long;
+    let tableRow=document.createElement('tr');
+    let actionIcons = document.createElement('td');
+    actionIcons.innerHTML = editSVG+deleteSVG;
+    actionIcons.classList.add('butt');
+    tableRow.appendChild(accidentID);
+    tableRow.appendChild(vehicleID);
+    tableRow.appendChild(location);
+    tableRow.appendChild(actionIcons);
+    tableRow.id=snap.key;
+    tableRow.classList.add('Accidents');
+    document.querySelector("#"+snap.key).outerHTML=tableRow.outerHTML;
 })
 
 accidents.on('child_removed',snap=>{
