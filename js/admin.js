@@ -52,9 +52,9 @@ const addPoliceStation = (location,contactNumber) =>{
 
 const editPoliceStation = (psKey, location, contactNumber) =>{
     if(location)
-    ambulances.child(psKey+'/location').set(location);
+    policeStations.child(psKey+'/location').set(location);
     if(contactNumber)
-    ambulances.child(psKey+'/contact').set(contactNumber);
+    policeStations.child(psKey+'/contact').set(contactNumber);
 }
 
 const addVehicle = (ownerName,contactNumber) =>{
@@ -75,6 +75,12 @@ const editVehicle = (vehicleKey, ownerName, contactNumber) =>{
     vehicles.child(vehicleKey+'/contact').set(contactNumber);
 }
 
+function showMessage(message) {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    x.innerHTML=message;
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+} 
 
 document.querySelector("#navigation").addEventListener('click',e=>{
     if(e.target.tagName=="SPAN"){
@@ -210,7 +216,7 @@ window.addEventListener("click",e=>{
             let prevAddition=document.querySelector('.cancel-add-butt');
             let prevAddTable=prevAddition.getAttribute('add');
             prevAddition.classList.add('add-butt');
-            prevAddition.innerHTML=(prevAddTable=='PoliceStations')? '+ Add New Police Stations': '+ Add New '+prevAddTable;
+            prevAddition.innerHTML=(prevAddTable=='PoliceStations')? '+ Add New Police Station': '+ Add New '+prevAddTable;
             prevAddition.classList.remove('cancel-add-butt')
             additionActive=null;
         }
@@ -237,16 +243,156 @@ window.addEventListener("click",e=>{
             e.target.innerHTML='+ Add New '+e.target.getAttribute('add');
         }
         additionActive=null;
+    }else if(e.target.classList.contains('input-error')){
+        e.target.classList.remove('input-error')
     }
 })
 
 document.querySelector('#add-edit-form').addEventListener('submit',e=>{
     e.preventDefault();
     let fields=e.target.querySelectorAll('input[type="text"]');
-    if(additionActive){
-        console.log('Adding ',additionActive,e,fields);
+    let contact;
+    if(!fields[4].value || isNaN(fields[4].value)){
+        fields[4].classList.add('input-error');
     }else{
-        console.log('Editing ',editingRecordID,e,fields);
+        contact=parseInt(fields[4].value);
+    }
+    if(additionActive){
+        if(additionActive=='Ambulances'){
+            let lat,long;
+            if(!fields[3].value || isNaN(fields[3].value)){
+                fields[3].classList.add('input-error');
+            }else{
+                long=parseFloat(fields[3].value);
+            }
+            if(!fields[2].value || isNaN(fields[2].value)){
+                fields[2].classList.add('input-error');
+            }else{
+                lat=parseFloat(fields[2].value);
+            }
+            if(fields[2].classList.contains('input-error') || fields[3].classList.contains('input-error') || fields[4].classList.contains('input-error')){
+                showMessage("Invalid inputs");
+            }else{
+                showMessage("Record added successfully");
+                addAmbulance({lat,long},contact);
+                document.querySelector('#input-appear').style.display='none';
+                document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+                let prevAddition=document.querySelector('.cancel-add-butt');
+                prevAddition.classList.add('add-butt');
+                prevAddition.innerHTML='+ Add New Ambulance';
+                prevAddition.classList.remove('cancel-add-butt')
+                additionActive=null;
+            }
+        }else if(additionActive=='PoliceStations'){
+            let lat,long;
+            if(!fields[3].value || isNaN(fields[3].value)){
+                fields[3].classList.add('input-error');
+            }else{
+                long=parseFloat(fields[3].value);
+            }
+            if(!fields[2].value || isNaN(fields[2].value)){
+                fields[2].classList.add('input-error');
+            }else{
+                lat=parseFloat(fields[2].value);
+            }
+            if(fields[2].classList.contains('input-error') || fields[3].classList.contains('input-error') || fields[4].classList.contains('input-error')){
+                showMessage("Invalid inputs");
+            }else{
+                showMessage("Record added successfully");
+                addPoliceStation({lat,long},contact);
+                document.querySelector('#input-appear').style.display='none';
+                document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+                let prevAddition=document.querySelector('.cancel-add-butt');
+                prevAddition.classList.add('add-butt');
+                prevAddition.innerHTML='+ Add New Police Station';
+                prevAddition.classList.remove('cancel-add-butt')
+                additionActive=null;
+            }
+        }else{
+            let name;
+            if(!fields[1].value){
+                fields[1].classList.add('input-error');
+            }else{
+                name=fields[1].value;
+            }
+            if(fields[1].classList.contains('input-error') || fields[4].classList.contains('input-error')){
+                showMessage("Invalid inputs");
+            }else{
+                showMessage("Record added successfully");
+                addVehicle(name,contact);
+                document.querySelector('#input-appear').style.display='none';
+                document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+                let prevAddition=document.querySelector('.cancel-add-butt');
+                prevAddition.classList.add('add-butt');
+                prevAddition.innerHTML='+ Add New Vehicle';
+                prevAddition.classList.remove('cancel-add-butt')
+                additionActive=null;
+            }
+        }
+    }else{
+        let type=document.querySelector('#'+editingRecordID).classList[0];
+        if(type=='Ambulances'){
+            let lat,long;
+            if(!fields[3].value || isNaN(fields[3].value)){
+                fields[3].classList.add('input-error');
+            }else{
+                long=parseFloat(fields[3].value);
+            }
+            if(!fields[2].value || isNaN(fields[2].value)){
+                fields[2].classList.add('input-error');
+            }else{
+                lat=parseFloat(fields[2].value);
+            }
+            if(fields[2].classList.contains('input-error') || fields[3].classList.contains('input-error') || fields[4].classList.contains('input-error')){
+                showMessage("Invalid inputs");
+            }else{
+                showMessage("Record edited successfully");
+                editAmbulance(editingRecordID,{lat,long},contact);
+                document.querySelector('#input-appear').style.display='none';
+                document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+                document.querySelector("#"+editingRecordID+' .butt').innerHTML=editSVG+deleteSVG;
+                editingRecordID=null;
+            }
+        }else if(type=='PoliceStations'){
+            let lat,long;
+            if(!fields[3].value || isNaN(fields[3].value)){
+                fields[3].classList.add('input-error');
+            }else{
+                long=parseFloat(fields[3].value);
+            }
+            if(!fields[2].value || isNaN(fields[2].value)){
+                fields[2].classList.add('input-error');
+            }else{
+                lat=parseFloat(fields[2].value);
+            }
+            if(fields[2].classList.contains('input-error') || fields[3].classList.contains('input-error') || fields[4].classList.contains('input-error')){
+                showMessage("Invalid inputs");
+            }else{
+                showMessage("Record edited successfully");
+                editPoliceStation(editingRecordID,{lat,long},contact);
+                document.querySelector('#input-appear').style.display='none';
+                document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+                document.querySelector("#"+editingRecordID+" .butt").innerHTML=editSVG+deleteSVG;
+                editingRecordID=null;
+            }
+        }else{
+            let name;
+            if(!fields[1].value){
+                fields[1].classList.add('input-error');
+            }else{
+                name=fields[1].value;
+            }
+            if(fields[1].classList.contains('input-error') || fields[4].classList.contains('input-error')){
+                showMessage("Invalid inputs");
+            }else{
+                showMessage("Record edited successfully");
+                editVehicle(editingRecordID,name,contact);
+                document.querySelector('#input-appear').style.display='none';
+                document.querySelector('body').style.gridTemplateColumns='auto 15fr';
+                document.querySelector("#"+editingRecordID+" .butt").innerHTML=editSVG+deleteSVG;
+                editingRecordID=null;
+            }
+        }
     }
 })
 
