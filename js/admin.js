@@ -140,6 +140,7 @@ window.addEventListener("click",e=>{
             element.classList.remove('input-error');
         })
         document.querySelector('#input-appear h1').innerHTML="Edit";
+        document.querySelector('#input-appear #id-input').style.display="flex";
         const idElement=e.target.parentNode.parentNode.id;
         const values=e.target.parentNode.parentNode.querySelectorAll('td');
         if(editingRecordID || document.querySelector('#'+editingRecordID)){
@@ -177,6 +178,7 @@ window.addEventListener("click",e=>{
             element.classList.remove('input-error');
         })
         document.querySelector('#input-appear h1').innerHTML="Edit";
+        document.querySelector('#input-appear #id-input').style.display="flex";
         const idElement=e.target.parentNode.parentNode.parentNode.id;
         const values=e.target.parentNode.parentNode.parentNode.querySelectorAll('td');
         if(editingRecordID || document.querySelector('#'+editingRecordID)){
