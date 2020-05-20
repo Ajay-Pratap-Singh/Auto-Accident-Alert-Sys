@@ -578,13 +578,9 @@ accidents.on('child_added',snap=>{
     var marker= new google.maps.Marker({position:{lat:accident.location.lat,lng:accident.location.long},map});
     accidentMarkers[snap.key]=marker;
     let tableRow=document.createElement('tr');
-    let actionIcons = document.createElement('td');
-    actionIcons.innerHTML = editSVG+deleteSVG;
-    actionIcons.classList.add('butt');
     tableRow.appendChild(accidentID);
     tableRow.appendChild(vehicleID);
     tableRow.appendChild(location);
-    tableRow.appendChild(actionIcons);
     tableRow.id=snap.key;
     tableRow.classList.add('Accidents');
     accidentsTable.appendChild(tableRow);
@@ -600,13 +596,9 @@ accidents.on('child_changed',snap=>{
     location.innerHTML='lat: '+accident.location.lat+'<br>long: '+accident.location.long;
     accidentMarkers[snap.key].setPosition({lat:accident.location.lat,lng:accident.location.long});
     let tableRow=document.createElement('tr');
-    let actionIcons = document.createElement('td');
-    actionIcons.innerHTML = editSVG+deleteSVG;
-    actionIcons.classList.add('butt');
     tableRow.appendChild(accidentID);
     tableRow.appendChild(vehicleID);
     tableRow.appendChild(location);
-    tableRow.appendChild(actionIcons);
     tableRow.id=snap.key;
     tableRow.classList.add('Accidents');
     document.querySelector("#"+snap.key).outerHTML=tableRow.outerHTML;
