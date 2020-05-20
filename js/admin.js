@@ -14,6 +14,10 @@ const accidents = dbRoot.child('Accidents');
 let editingRecordID;
 let additionActive;
 
+let ambulanceMarkers={};
+let psMarkers=[];
+let accidentMarkers=[];
+
 const editSVG='<svg title="edit" class="edit-row edit bi bi-pencil" width="1.6em" height="1.6em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/></svg>';
 const deleteSVG='<svg title="delete" class="delete-row delete bi bi-trash" width="1.6em" height="1.6em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" clip-rule="evenodd"/></svg>';
 
@@ -408,12 +412,15 @@ document.querySelector('#add-edit-form').addEventListener('submit',e=>{
 })
 
 ambulances.on('child_added',snap=>{
+    let ambulance=snap.val();
     let  ambulanceID = document.createElement('td');
     ambulanceID.innerHTML=snap.key;
     let location = document.createElement('td');
-    location.innerHTML='lat: '+snap.val().permanentLocation.lat+'<br>long: '+snap.val().permanentLocation.long;
+    location.innerHTML='lat: '+ambulance.permanentLocation.lat+'<br>long: '+ambulance.permanentLocation.long;
+    var marker= new google.maps.Marker({position:{lat:ambulance.permanentLocation.lat,lng:ambulance.permanentLocation.long},map})
+    ambulanceMarkers[snap.key]=marker;
     let contact = document.createElement('td');
-    contact.innerHTML = snap.val().contact;
+    contact.innerHTML = ambulance.contact;
     let actionIcons = document.createElement('td');
     actionIcons.innerHTML = editSVG+deleteSVG;
     actionIcons.classList.add('butt');
@@ -428,12 +435,14 @@ ambulances.on('child_added',snap=>{
 })
 
 ambulances.on('child_changed',snap=>{
+    let ambulance=snap.val();
     let  ambulanceID = document.createElement('td');
     ambulanceID.innerHTML=snap.key;
     let location = document.createElement('td');
-    location.innerHTML='lat: '+snap.val().permanentLocation.lat+'<br>long: '+snap.val().permanentLocation.long;
+    location.innerHTML='lat: '+ambulance.permanentLocation.lat+'<br>long: '+ambulance.permanentLocation.long;
+    ambulanceMarkers[snap.key].setPosition({lat:ambulance.permanentLocation.lat,lng:ambulance.permanentLocation.long});
     let contact = document.createElement('td');
-    contact.innerHTML = snap.val().contact;
+    contact.innerHTML = ambulance.contact;
     let actionIcons = document.createElement('td');
     actionIcons.innerHTML = editSVG+deleteSVG;
     actionIcons.classList.add('butt');
@@ -449,15 +458,20 @@ ambulances.on('child_changed',snap=>{
 
 ambulances.on('child_removed',snap=>{
     document.querySelector('#'+snap.key).remove();
+    ambulanceMarkers[snap.key].setMap(null);
+    ambulanceMarkers[snap.key]=null;
 })
 
 policeStations.on('child_added',snap=>{
+    let policeStation=snap.val();
     let  policeStationID = document.createElement('td');
     policeStationID.innerHTML=snap.key;
     let location = document.createElement('td');
-    location.innerHTML='lat: '+snap.val().location.lat+'<br>long: '+snap.val().location.long;
+    location.innerHTML='lat: '+policeStation.location.lat+'<br>long: '+policeStation.location.long;
+    var marker= new google.maps.Marker({position:{lat:policeStation.location.lat,lng:policeStation.location.long},map});
+    psMarkers[snap.key]=marker;
     let contact = document.createElement('td');
-    contact.innerHTML = snap.val().contact;
+    contact.innerHTML = policeStation.contact;
     let tableRow=document.createElement('tr');
     let actionIcons = document.createElement('td');
     actionIcons.innerHTML = editSVG+deleteSVG;
@@ -472,12 +486,14 @@ policeStations.on('child_added',snap=>{
 })
 
 policeStations.on('child_changed',snap=>{
+    let policeStation=snap.val();
     let  policeStationID = document.createElement('td');
     policeStationID.innerHTML=snap.key;
     let location = document.createElement('td');
-    location.innerHTML='lat: '+snap.val().location.lat+'<br>long: '+snap.val().location.long;
+    location.innerHTML='lat: '+policeStation.location.lat+'<br>long: '+policeStation.location.long;
+    psMarkers[snap.key].setPosition({lat:policeStation.location.lat,lng:policeStation.location.long});
     let contact = document.createElement('td');
-    contact.innerHTML = snap.val().contact;
+    contact.innerHTML = policeStation.contact;
     let tableRow=document.createElement('tr');
     let actionIcons = document.createElement('td');
     actionIcons.innerHTML = editSVG+deleteSVG;
@@ -493,6 +509,8 @@ policeStations.on('child_changed',snap=>{
 
 policeStations.on('child_removed',snap=>{
     document.querySelector('#'+snap.key).remove();
+    psMarkers[snap.key].setMap(null);
+    psMarkers[snap.key]=null;
 })
 
 vehicles.on('child_added',snap=>{
@@ -540,12 +558,15 @@ vehicles.on('child_removed',snap=>{
 })
 
 accidents.on('child_added',snap=>{
+    let accident=snap.val();
     let  accidentID = document.createElement('td');
     accidentID.innerHTML=snap.key;
     let  vehicleID = document.createElement('td');
-    vehicleID.innerHTML=snap.val().vehicleID;
+    vehicleID.innerHTML=accident.vehicleID;
     let location = document.createElement('td');
-    location.innerHTML='lat: '+snap.val().location.lat+'<br>long: '+snap.val().location.long;
+    location.innerHTML='lat: '+accident.location.lat+'<br>long: '+accident.location.long;
+    var marker= new google.maps.Marker({position:{lat:accident.location.lat,lng:accident.location.long},map});
+    accidentMarkers[snap.key]=marker;
     let tableRow=document.createElement('tr');
     let actionIcons = document.createElement('td');
     actionIcons.innerHTML = editSVG+deleteSVG;
@@ -560,12 +581,14 @@ accidents.on('child_added',snap=>{
 })
 
 accidents.on('child_changed',snap=>{
+    let accident=snap.val();
     let  accidentID = document.createElement('td');
     accidentID.innerHTML=snap.key;
     let  vehicleID = document.createElement('td');
-    vehicleID.innerHTML=snap.val().vehicleID;
+    vehicleID.innerHTML=accident.vehicleID;
     let location = document.createElement('td');
-    location.innerHTML='lat: '+snap.val().location.lat+'<br>long: '+snap.val().location.long;
+    location.innerHTML='lat: '+accident.location.lat+'<br>long: '+accident.location.long;
+    accidentMarkers[snap.key].setPosition({lat:accident.location.lat,lng:accident.location.long});
     let tableRow=document.createElement('tr');
     let actionIcons = document.createElement('td');
     actionIcons.innerHTML = editSVG+deleteSVG;
@@ -581,6 +604,8 @@ accidents.on('child_changed',snap=>{
 
 accidents.on('child_removed',snap=>{
     document.querySelector('#'+snap.key).remove();
+    accidentMarkers[snap.key].setMap(null);
+    accidentMarkers[snap.key]=null;
 })
 
 

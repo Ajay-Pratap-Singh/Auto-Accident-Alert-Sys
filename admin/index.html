@@ -7,128 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="style.css">
     <style>
-        section > div{
-            max-width:75vw;
-            min-height: 70vh;
-            background-color: white;
-            padding: 3em;
-            border-radius: 3em;
-        }
-        table{
-            border-collapse: separate;
-            border-spacing: 0 1.1em;
-            min-width:95%;
-        }
-        td {
-            background-color: white;
-            padding: 1.1em 1.2em;
-        }
-        tr{
-            transition: 60ms;
-            box-shadow: 0 1px 9px -1px #ccc,
-                        0 4px 4px -1px #ddd;
-        }
-        .to-be-deleted,
-        .to-be-deleted td{
-            background-color: red;
-        }
-        th{
-            text-align: left;
-            padding: 1em 1.2em;
-        }
-        tr:hover{
-            transition: 40ms;
-            box-shadow: 0 1px 9px -1px #bbb,
-                        0 4px 5px 0px #ccc;
-            transform: scale(1.01);
-        }
-        .butt svg{
-            visibility: hidden;
-            text-align: right;
-        }
-        tr:hover .butt svg{
-            visibility: visible;
-        }
-        .table-head{
-            position:sticky;
-            top: 0;
-            background-color: #eee;
-        }
-        .table-head:hover{
-            transform: scale(1);
-            box-shadow: 0 1px 9px -1px #ccc,
-                        0 4px 4px -1px #ddd;
-        }
-        td svg{
-            cursor: pointer;
-            transition: 90ms;
-            margin:0 1em 0 0;
-        }
-        td svg:hover{
-            transition: 90ms;
-            transform: scale(1.4);
-        }
-        .edit:hover{
-            color:chocolate;
-        }
-        tr .delete{
-            margin-right: 2em;
-        }
-        tr .delete:hover{
-            color: crimson;
-        }
-        .cancel-delete,
-        .cancel-edit{
-            transition: 120ms;
-            cursor: pointer;
-            padding: 0.5em 1em;
-            border: 1px solid chartreuse;
-            color:chartreuse;
-            background-color: white;
+        #map{
+            max-width: unset;
+            height: 90vh;
+            width: 100%;
             border-radius: 8px;
-        }
-        .cancel-delete:hover,
-        .cancel-edit:hover{
-            transition: 120ms;
-            background-color: chartreuse;
-            color: cornsilk;
-        }
-        #delete-final{
-            visibility: hidden;
-            position: fixed;
-            bottom: 4em;
-            right:8em;
-            cursor: pointer;
-            border-radius: 50%;
-            display: inline-block;
-            padding: 1.3em 1.2em 1em 1.2em;
-            background-color: #cdcdcd;
-            transition: 110ms;
-            box-shadow: 0 5px 10px -2px gray;
-        }
-        #delete-final:hover svg{
-            transition: 110ms;
-            transform: scale(1.3);
-        }
-        #delete-final svg{
-            transition:150ms;
-        }
-        #delete-final:hover{
-            transition: 80ms;
-            background-color: whitesmoke;
-            transform: scale(1.2);
-            box-shadow: 0 5px 10px -2px gray,
-                0 -3px 8px 3px #ccc inset;
-            color: crimson;
-        }
-        #delete-final:active{
-            color: white;
-            background-color: crimson;
-            box-shadow: 0 5px 10px -2px gray,
-                0 -3px 18px 0px #555 inset;
-        }
-        #delete:active svg{
-            color: white;
+            margin: -1em 0em 0em -1em;
+            padding: 0;
         }
     </style>
 </head>
@@ -180,7 +65,7 @@
     <main>
         <section id="active-sec">
             <h1>Welcome to the Dashboard</h1>
-            
+            <div id="map"></div>
         </section>
 
         <section id="accidents-sec">
@@ -279,6 +164,8 @@
 
     </aside>
     <div id="snackbar">Some text some message..</div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwvxqipTKiOBupoU_lwxC0KqLok6dAbM&callback=initMap"
+    async defer></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
@@ -287,5 +174,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
     <script src="../js/firebase.js"></script>
     <script src="../js/admin.js"></script>
+    <script src="../js/mapScript.js"></script>
+
 </body>
 </html>
