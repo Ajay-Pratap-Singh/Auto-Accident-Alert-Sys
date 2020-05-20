@@ -1,37 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ambulance</title>
-</head>
-<body>
-    <section>
-        <h1>Accidents</h1>
-        <div id = "accidents">
-            <table>
-                <th>
-                    <tr>
-                        <td>one</td>
-                        <td>two</td>
-                    </tr>
-                </th>
-                <tr>
-                    <td>one</td>
-                    <td>two</td>
-                </tr>
-            </table>
-        </div>
-        <input type="text" value="aas" >
-    </section>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        height: 50vh;
+        width: 40vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwvxqipTKiOBupoU_lwxC0KqLok6dAbM&callback=initMap">
+    </script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
     <script src="../js/firebase.js"></script>
-    <script src="script.js"></script>
-</body>
+    <script src="scr.js"></script>
+  </body>
 </html>
