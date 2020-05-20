@@ -12,7 +12,7 @@ function initMap() {
     zoom: 2,
   });
   var marker=new google.maps.Marker({position:{ lat: 0, lng: 0 },map,icon:'../img/ambulance.png'});
-  
+
   window.setTimeout(function(){
     navigator.geolocation.getCurrentPosition((position) => {
       let pos = {
@@ -27,17 +27,3 @@ function initMap() {
     });
   }, 5000);
 }
-
-window.setTimeout(function(){
-  navigator.geolocation.getCurrentPosition((position) => {
-    let pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    };
-    map.setCenter(pos);
-    map.setZoom(16);
-    console.log('a');
-    marker.setPosition(pos);
-    ambulance.child('currLocation').set({lat:pos.lat,long:pos.lng});
-  });
-}, 5000);
