@@ -41,6 +41,16 @@ const addAmbulance = (permanentLocation,contactNumber) =>{
     update[newAmbKey]=newAmbulance;
     ambulances.update(update);
 }
+const addAccident = (vehicleID,location) =>{
+    let newAccKey = accidents.push().key;
+    let newAccident={
+        vehicleID,
+        location
+    }
+    let update={};
+    update[newAccKey]=newAccident;
+    accident.update(update);
+}
 
 const deleteEntry = (type,key) =>{
     firebase.database().ref().child(type+'/'+key).remove();

@@ -4,26 +4,28 @@
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="./style.css">
     <style>
-      
+      #map {
+        height: 50vh;
+        width: 40vw;
+      }
     </style>
   </head>
   <body>
     <div id="map"></div>
     
-    <div id="accidents-sec">
-      <div id = "accidents-div">
-          <table id = "accidents">
-              <tr class="table-head">
-                  <th>Accident ID</th>
-                  <th>Vehicle ID</th>
-                  <th>Location</th>
-                  <th></th>
-              </tr>
-          </table>
-      </div>
-    </div>
+    <section id="accidents-sec">
+        <h1>Accidents</h1>
+        <div id = "accidents">
+            <table>
+                <tr class="table-head">
+                    <th>Accident ID</th>
+                    <th>Vehicle ID</th>
+                    <th>Location</th>
+                  </tr>
+            </table>
+        </div>
+    </section>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOwvxqipTKiOBupoU_lwxC0KqLok6dAbM&callback=initMap">
