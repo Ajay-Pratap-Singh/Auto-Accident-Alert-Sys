@@ -1,6 +1,6 @@
-const ambulanceID = '-M7XKs39Zu_cLRjZrmbN';
+const psID = '-M67wFxL0tHrNJ-A2Zi8';
 const dbRoot = firebase.database().ref();
-const ambulance = dbRoot.child('Ambulances/' + ambulanceID);
+const policeStation = dbRoot.child('PoliceStations/' + psID);
 const accidents = dbRoot.child('Accidents');
 let accidentMarkers = [];
 
@@ -32,13 +32,13 @@ async function  initMap() {
     center: { lat: 0, lng: 0 },
     zoom: 16,
   });
-  var marker = new google.maps.Marker({ position: { lat: 0, lng: 0 }, map, icon: '../img/ambulance.png' });
+  var marker = new google.maps.Marker({ position: { lat: 0, lng: 0 }, map, icon: '../img/police-station.png' });
   //let service = new google.maps.DistanceMatrixService();
 
   
   // getting ambulance lat lon 
-  const snap=await ambulance.once('value');
-  const loaction=snap.val().permanentLocation;
+  const snap=await policeStation.once('value');
+  const loaction=snap.val().location;
   const lat = loaction.lat;
   const long = loaction.long;
   
@@ -51,7 +51,7 @@ async function  initMap() {
     // calculating distance between accident and ambulance
     let dist=distance(lat, long, lat1, long1);
     console.log(dist);
-    if (dist <= 5.0  && !accident.ambulanceID ) {
+    if (dist <= 5.0) {
       console.log('accident near you');
       let accidentID = document.createElement('td');
       accidentID.innerHTML = snap.key;
@@ -66,22 +66,12 @@ async function  initMap() {
       
       // creting a button
       let button = document.createElement("button");
-      button.innerHTML = "Rescue";
+      button.innerHTML = "Get Directions";
       actionIcons.appendChild(button);
       button.value = snap.key;
       button.classList.add('button');
       button.addEventListener('click', (e) => {
-        console.log(e.target.value);
-        let r = confirm("Are you sure you want to go to this location :\n Press OK to confirm");
-        if (r === true) {
-          //console.log('Yes');
-          accidents.child(e.target.value).update({ ambulanceID:ambulanceID });
-          button.innerHTML = "Going...";
-          button.disabled = true;
-          window.open('https://www.google.com/maps/dir/?api=1&destination='+lat1+','+long1+'&travelmode=driving',"_blank");
-        } else {
-          alert("Cancelled");
-        }
+        window.open('https://www.google.com/maps/dir/?api=1&destination='+lat1+','+long1+'&travelmode=driving',"_blank");
       });
       tableRow.appendChild(accidentID);
       tableRow.appendChild(vehicleID);
@@ -90,7 +80,6 @@ async function  initMap() {
       tableRow.id = snap.key;
       tableRow.classList.add('Accidents');
       document.querySelector('#accidents').appendChild(tableRow);
-
     }
   })
 
@@ -104,7 +93,6 @@ async function  initMap() {
       // map.setZoom(16);
       console.log(pos.lat,pos.lng);
       marker.setPosition(pos);
-      ambulance.child('currLocation').set({ lat: pos.lat, long: pos.lng });
     });
   }, 5000);
 }
