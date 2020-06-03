@@ -52,7 +52,6 @@ async function  initMap() {
     let dist=distance(lat, long, lat1, long1);
     console.log(dist);
     if (dist <= 5.0) {
-      console.log('accident near you');
       let accidentID = document.createElement('td');
       accidentID.innerHTML = snap.key;
       let vehicleID = document.createElement('td');
@@ -64,7 +63,7 @@ async function  initMap() {
       let tableRow = document.createElement('tr');
       let actionIcons = document.createElement('td');
       
-      // creting a button
+      // creating a button
       let button = document.createElement("button");
       button.innerHTML = "Get Directions";
       actionIcons.appendChild(button);

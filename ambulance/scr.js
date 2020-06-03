@@ -64,17 +64,15 @@ async function  initMap() {
       let tableRow = document.createElement('tr');
       let actionIcons = document.createElement('td');
       
-      // creting a button
+      // creating a button
       let button = document.createElement("button");
       button.innerHTML = "Rescue";
       actionIcons.appendChild(button);
       button.value = snap.key;
       button.classList.add('button');
       button.addEventListener('click', (e) => {
-        console.log(e.target.value);
         let r = confirm("Are you sure you want to go to this location :\n Press OK to confirm");
         if (r === true) {
-          //console.log('Yes');
           accidents.child(e.target.value).update({ ambulanceID:ambulanceID });
           button.innerHTML = "Going...";
           button.disabled = true;
